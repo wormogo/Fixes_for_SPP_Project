@@ -1,3 +1,9 @@
+-- Status needs to be added under each quest to know if it is working or not.
+-- Statuses:
+	- OK : works fine, but have to work on some element
+	- NOT WORK : quest is not working on a proper way
+	- FULL : Blizzlike
+
 -- Worgen 
 
 -- Gilneas City 
@@ -5,6 +11,9 @@
 -- Merchant Square
 
 -- Lockdown! - 14078
+	- Status: OK
+	- Gilneas Crow does not fly up when player approaches
+
 -- Something's Amiss 
 -- All Hell Breaks Loose
 -- Evacuate The Merchant Square
