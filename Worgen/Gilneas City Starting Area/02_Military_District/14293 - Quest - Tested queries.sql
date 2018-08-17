@@ -2,9 +2,9 @@
 
 -- Save Krennan Aranas:
 -- Aura definition to Area
-DELETE FROM spell_area WHERE spell = 49416 AND area = 4757;
+DELETE FROM spell_area WHERE spell = 49416 AND area = 4755;
 INSERT INTO spell_area (`spell`, `area`, `quest_start`, `quest_end`, `quest_start_status`, `quest_end_status`) 
-VALUES (49416, 4757, 14293, 14294, 74, 64);
+VALUES (49416, 4755, 14293, 14294, 74, 64);
 -- Greymane's Horse - 35905
 --	Seat definition
 INSERT INTO `vehicle_template_accessory` (`entry`, `accessory_entry`, `seat_id`, `minion`, `description`, `summontype`, `summontimer`) VALUES
