@@ -18,6 +18,11 @@ SPELLS:
 / Remove Aura spell: 49416 - https://www.wow-freakz.com/spells.php?spell=49416&name=generic-quest-invisibility-detection-1
 Requires nearby : 195660 object Spell focus
 46598: Ride Vehicle Hardcoded / https://www.wow-freakz.com/spells.php?spell=46598
+66914: Gilneas - Quest - Gilneas Prison Periodic Forcecast / https://www.wow-freakz.com/spells.php?spell=66914&name=gilneas-quest-gilneas-prison-periodic-forcecast
+/ Force Cast With Target As Caster: 66894 - Gilneas Prison Periodic / https://www.wow-freakz.com/spells.php?spell=66894&name=gilneas-prison-periodic
+/ Triggers spell - 66853 - https://www.wow-freakz.com/spells.php?spell=66853&name=gilneas-prison-periodic-dummy
+/ Apply aura: 66853 - Gilneas Prison Peridoic Spell / https://www.wow-freakz.com/spells.php?spell=66853&name=gilneas-prison-periodic-dummy
+
 
 GAMEOBJECT TEMPLATE - SPELL FOCUS OBJECT:
 195660 - For Spell "Rescue Krennan"
