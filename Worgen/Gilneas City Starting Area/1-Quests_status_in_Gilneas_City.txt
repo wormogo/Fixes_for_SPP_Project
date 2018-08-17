@@ -11,33 +11,116 @@
 -- Merchant Square
 
 -- Lockdown! - 14078
-	- Status: OK
+	- ok
 	- Gilneas Crow does not fly up when player approaches
+	- the frightened citisens need waypoints
+	- gates near lieutenant walden are there 3 times. only one is required and it shouldn't be openable
 
 -- Something's Amiss - 14091
 	- full
--- All Hell Breaks Loose - 
--- Evacuate The Merchant Square
--- Salvage The Supplies
--- Royal Orders
+-- All Hell Breaks Loose - 14093
+	- ok
+	- worgen and guards interactions must be fixed same as speed of movement and waypoints
+	- one npc is wrongly set. it atacks prince liam. npc id: 35660 and is not atackable
+	
+-- Evacuate The Merchant Square - 14098
+	- ok
+	- the waypoints for people evacuating the buildings are wrongly puted or not working.
+	- the worgen inside the buildings are not atackable. id 35660 . they shouldn't be atackable while they get out of the building, 	but after that they should atack the player.
+	- animation knoking on door is needed when opening the doors
+	- the third door does not open. npcs go through it while it remains closed. perhaps script glitch.
+	
+-- Salvage The Supplies - 14094
+	- full
+-- Royal Orders - 14099
+	- ok
+	- gwen should become invisible after accepting quest
 
 -- Military District
 
--- Someone's Looking For You
--- Safety In Numbers
--- Old Divisions
--- The Prison Rooftop
--- By The Skin Of His Teeth
--- While You're At It
--- Brothers In Arms
--- The Rebel Lord's Arsenal
--- From The Shadows
--- Message To Greymane
--- Save Krennan Aranas
--- Time To Regroup 
+-- frost nova - mage - 14281
+	- full
+	
+-- the winds know your name apparently - priest - 14280
+	- full
+	
+-- seek the sister - priest - 14278
+	- full
+	
+-- someone's Looking For You - rogue - 14285
+	- full
+	
+-- someones keeping track of you - hunter - 14275
+	- full
+	
+-- corruption - warlock - 14274
+	- full
+	
+-- your-instructor - warrior - 14265
+	- full
+	
+-- Safety In Numbers - 14285, 14286, 14287, 14288, 14289, 14290, 14291
+	- full
+	
+-- Old Divisions - 14157
+	- ok
+	- there is a phase change when you enter the prizon. it shouldn't be there.
+	
+-- The Prison Rooftop - 
+	- ok
+	- wrong phase 
+	
+-- By The Skin Of His Teeth - 14154
+	- not work 
+	- it sometimes does but is mostly bugged. a rethink of the script may be required. aslo the phasing is wrong and 			worgen waypoints and speed of movement
+	- the phase itself is wrong. you should be able to see down in the courtyard the worgen fighting guards.
+	- as gm you can see the worgen that jump from rooftops, on the top of the prizon. also wrong
+	
+-- While You're At It - 24930
+	- ok
+	- too many worgen summoned and they need to be atacking the guards
+	
+-- Brothers In Arms - 26129
+	- full
+	
+-- The Rebel Lord's Arsenal - 14159
+	- OK
+	- you should be propelled by the stairs near loona.
+	- celler doors need fixing only the closing one works only once! so you get stuck outside or inside as the doors remain close.
+	the only way out is eighter reset server or use gob comands to find guid of gameobject and then activate them
+	- needs to remove phase 170
+	- there are 2 worgens ataking. there should be only 1, killed by loona
+	
+-- From The Shadows - 14204
+	- ok
+	- the mut doesn't atack worgen lurkers
+	- too many worgen lurkers and too close togeder
+	
+-- Message To Greymane - 14214
+	- full
+	
+-- Save Krennan Aranas - 14293
+	- not work 
+	- the spells are wrongly set, waypoints and scripst missing
+	- the canons don't fire
+	- phase shift to 172
+	
+-- Time To Regroup - 14294
+	- full
+	
+-- sacrifices - 14212
+	- not work
+	- script doesn't start
+	- crowley is not on horse
+	- no way over the wall
 
 -- Cathedral Quarter
 
--- By Blood And Ash
--- Never Surrender, Sometimes Retreat
--- Last Stand
+-- By Blood And Ash - 14218
+	- full
+	
+-- Never Surrender, Sometimes Retreat - 14221
+	- full
+	
+-- Last Stand - 14222
+	- full
