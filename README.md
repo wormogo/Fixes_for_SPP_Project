@@ -1,4 +1,3 @@
-# wow_fixes_for_SPP 2018
 SPP project WOW fixes 2018
 
 SAI and Blizzlike fixes based on wow classes for Conan's SPP project / community
