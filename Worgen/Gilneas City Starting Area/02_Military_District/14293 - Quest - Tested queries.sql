@@ -12,6 +12,26 @@ INSERT INTO `vehicle_template_accessory` (`entry`, `accessory_entry`, `seat_id`,
 --	Set SmartAI and delete ScriptName
 UPDATE `creature_template` SET `AIName`='SmartAI', `ScriptName`='', `spell1`=68219, `unit_flags`=10 WHERE `entry` IN (35905);
 
+-- Waypoint definition for Greymane's Horse
+DELETE FROM `waypoints` WHERE `entry` IN (35905);
+INSERT INTO `waypoints` VALUES 
+(35905, 16, -1771.46, 1430.1, 19.8183, ''),
+(35905, 15, -1766.16, 1404.17, 19.8109, ''),
+(35905, 14, -1746.3, 1375.96, 19.97, ''),
+(35905, 13, -1725.38, 1356.36, 19.8184, ''),
+(35905, 12, -1705.86, 1350.95, 19.8964, ''),
+(35905, 11, -1685.27, 1355.4, 15.1356, ''),
+(35905, 10, -1672.07, 1362.12, 15.135, ''),
+(35905, 9, -1666.29, 1355.75, 15.135, ''),
+(35905, 8, -1668.71, 1348.29, 15.1366, ''),
+(35905, 7, -1674.46, 1344.95, 15.1352, ''),
+(35905, 6, -1707.42, 1345.95, 19.896, ''),
+(35905, 5, -1728.55, 1351.81, 19.6012, ''),
+(35905, 4, -1755.42, 1368.4, 19.7833, ''),
+(35905, 3, -1777.13, 1369.23, 19.8021, ''),
+(35905, 2, -1790.45, 1383.17, 19.8166, ''),
+(35905, 1, -1800.37, 1407.18, 20.0265, '');
+
 -- King Genn Greymane - 35550
 
 DELETE FROM `smart_scripts` WHERE `entryorguid`= 35550 AND `source_type`=0;
