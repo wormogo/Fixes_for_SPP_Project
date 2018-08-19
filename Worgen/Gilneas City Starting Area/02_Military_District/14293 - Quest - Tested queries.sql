@@ -1,18 +1,40 @@
--- Tested:
+-- SAVE KRENNAN
 
--- Save Krennan Aranas:
--- Aura definition to Area / maybe not needed
-DELETE FROM spell_area WHERE spell = 49416 AND area = 4755;
-INSERT INTO spell_area (`spell`, `area`, `quest_start`, `quest_end`, `quest_start_status`, `quest_end_status`) 
-VALUES (49416, 4755, 14293, 14294, 74, 11);
--- Greymane's Horse - 35905
---	Seat definition
-INSERT INTO `vehicle_template_accessory` (`entry`, `accessory_entry`, `seat_id`, `minion`, `description`, `summontype`, `summontimer`) VALUES
-(35905, 35907, 1, 0, 35905 - 35907, 0, 0); -- 35905 - 35907
---	Set SmartAI and delete ScriptName
+-- Save Krennan Aranas (14293)
+UPDATE `creature_template` SET `AIName`='SmartAI', `ScriptName`='' WHERE `entry` IN (35550);
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (35550);
+INSERT INTO `smart_scripts` VALUES
+(35550, 0, 0, 0, 1, 0, 100, 0, 0, 0, 30000, 30000, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'King Genn Greymane - Out Of Combat - Say Text'),
+(35550, 0, 1, 0, 19, 0, 100, 0, 14293, 0, 0, 0, 0, 11, 68232, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 'King Genn Greymane - Accepted Quest - Cast Gilneas Prison Periodic');
+UPDATE `creature_template` SET `AIName`='SmartAI', `ScriptName`='', `unit_flags`=33280, `flags_extra`=2 WHERE `entry` IN (35753);
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (35753);
+INSERT INTO `smart_scripts` VALUES
+(35753, 0, 0, 0, 1, 0, 100, 0, 0, 0, 60000, 60000, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - Out Of Combat - Say Text'),
+(35753, 0, 1, 0, 8, 0, 100, 1, 68219, 0, 0, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - On Spellhit - Forced Despawn');
 UPDATE `creature_template` SET `AIName`='SmartAI', `ScriptName`='', `spell1`=68219, `unit_flags`=10 WHERE `entry` IN (35905);
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (35905, 3590500);
+INSERT INTO `smart_scripts` VALUES
+(35905, 0, 0, 1, 27, 0, 100, 1, 0, 0, 0, 0, 0, 80, 3590500, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'King Greymane\'s Horse - On Passanger Boarded - Start Timed Action Script'),
+(35905, 0, 1, 0, 61, 0, 100, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'King Greymane\'s Horse - On Link - Allow Combat Movement'),
+(35905, 0, 2, 0, 40, 0, 100, 0, 6, 0, 0, 0, 0, 97, 25, 10, 0, 0, 0, 0, 1, 0, 0, 0, -1674.46, 1344.95, 15.1352, 0, 'King Greymane\'s Horse - On WP Reached - Jump to PoS'),
+(35905, 0, 3, 4, 40, 0, 100, 0, 16, 0, 0, 0, 0, 45, 1, 1, 0, 0, 0, 0, 11, 35907, 10, 0, 0, 0, 0, 0, 'King Greymane\'s Horse - On WP Reached - Set Data'),
+(35905, 0, 4, 0, 61, 0, 100, 0, 0, 0, 0, 0, 0, 41, 5000, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'King Greymane\'s Horse - On WP Reached - Despawn'),
+(3590500, 9, 0, 0, 0, 0, 100, 0, 5000, 5000, 5000, 5000, 0, 53, 1, 35905, 0, 14293, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'King Greymane\'s Horse - Script - Start WP Movement');
+UPDATE `creature_template` SET `AIName`='SmartAI', `ScriptName`='' WHERE `entry` IN (35907);
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (35907);
+INSERT INTO `smart_scripts` VALUES
+(35907, 0, 0, 0, 11, 0, 100, 1, 0, 0, 0, 0, 0, 11, 46598, 0, 0, 0, 0, 0, 11, 35905, 10, 0, 0, 0, 0, 0, 'Krennan Aranas - On Respawn - Cast Spell'),
+(35907, 0, 1, 2, 38, 0, 100, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - on Data Set - Say Text'),
+(35907, 0, 2, 3, 61, 0, 100, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - on Data Set - Prevent Combat Movement'),
+(35907, 0, 3, 0, 61, 0, 100, 0, 0, 0, 0, 0, 0, 41, 1000, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - on Data Set - Forced Despawn');
+DELETE FROM `creature_text` WHERE `creatureid` IN (35550, 35753, 35907);
+INSERT INTO `creature_text` VALUES
+(35550, 0, 0, 'Fire!', 14, 0, 100, 0, 0, 0, 0, 0, ''),
+(35550, 0, 1, 'Hold the barricades! Do not give them an inch!', 14, 0, 100, 0, 0, 0, 0, 0, ''),
+(35550, 0, 2, 'Keep them back!', 14, 0, 100, 0, 0, 0, 0, 0, ''),
+(35753, 0, 0, 'Help! Up here!', 14, 0, 100, 0, 0, 0, 0, 0, ''),
+(35907, 1, 0, 'Thank you! I owe you my life.', 12, 0, 100, 0, 0, 0, 0, 0, '');
 
--- Waypoint definition for Greymane's Horse
 DELETE FROM `waypoints` WHERE `entry` IN (35905);
 INSERT INTO `waypoints` VALUES 
 (35905, 16, -1771.46, 1430.1, 19.8183, ''),
@@ -32,41 +54,22 @@ INSERT INTO `waypoints` VALUES
 (35905, 2, -1790.45, 1383.17, 19.8166, ''),
 (35905, 1, -1800.37, 1407.18, 20.0265, '');
 
--- King Genn Greymane - 35550
-
-DELETE FROM `smart_scripts` WHERE `entryorguid`= 35550 AND `source_type`=0;
-UPDATE creature_template SET AIName="SmartAI" WHERE entry= 35550 LIMIT 1;
-INSERT INTO `smart_scripts` (`entryorguid`,`source_type`,`id`,`link`,`event_type`,`event_phase_mask`,`event_chance`,`event_flags`,`event_param1`,`event_param2`,`event_param3`,`event_param4`,`action_type`,`action_param1`,`action_param2`,`action_param3`,`action_param4`,`action_param5`,`action_param6`,`target_type`,`target_param1`,`target_param2`,`target_param3`,`target_x`,`target_y`,`target_z`,`target_o`,`comment`) VALUES 
-(35550,0,0,0,1,0,100,0,30000,30000,0,0,1,0,0,0,0,0,0,1,0,0,0,0.0,0.0,0.0,0.0,"King Genn Greymane - Out Of Combat - Say Text"),
-(35550,0,1,0,19,0,100,0,14293,0,0,0,75,49414,0,0,0,0,0,7,0,0,0,0.0,0.0,0.0,0.0,"King Genn Greymane - Accepted Quest - Add Aura 49414"),
-(35550,0,2,1,61,0,100,0,0,0,0,0,11,68232,0,0,0,0,0,7,0,0,0,0.0,0.0,0.0,0.0,"King Genn Greymane - Link - Cast 68232");
-
--- Krennan Aranas on tree 35753
-UPDATE `creature_template` SET `AIName`='SmartAI', `ScriptName`='', `unit_flags`=33280, `flags_extra`=2 WHERE `entry` IN (35753);
-DELETE FROM `smart_scripts` WHERE `entryorguid` IN (35753);
-INSERT INTO `smart_scripts` VALUES
-(35753, 0, 0, 0, 1, 0, 100, 0, 0, 0, 60000, 60000, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - Out Of Combat - Say Text'),
-(35753, 0, 1, 0, 8, 0, 100, 1, 68219, 0, 0, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - On Spellhit - Forced Despawn');
-
--- Krennan Aranas on summoned Horse 35907
-UPDATE `creature_template` SET `AIName`='SmartAI', `ScriptName`='' WHERE `entry` IN (35907);
-DELETE FROM `smart_scripts` WHERE `entryorguid` IN (35907);
-INSERT INTO `smart_scripts` VALUES
-(35907, 0, 0, 0, 11, 0, 100, 1, 0, 0, 0, 0, 0, 11, 46598, 0, 0, 0, 0, 0, 11, 35905, 10, 0, 0, 0, 0, 0, 'Krennan Aranas - On Respawn - Cast Spell'),
-(35907, 0, 1, 2, 38, 0, 100, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - on Data Set - Say Text'),
-(35907, 0, 2, 3, 61, 0, 100, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - on Data Set - Prevent Combat Movement'),
-(35907, 0, 3, 0, 61, 0, 100, 0, 0, 0, 0, 0, 0, 41, 1000, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - on Data Set - Forced Despawn');
-
 -- Save Krennan Spell Focus
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `IconName`, `castBarCaption`, `unk1`, `size`, `Data0`, `Data1`, `Data2`, `Data3`, `Data4`, `Data5`, `Data6`, `Data7`, `Data8`, `Data9`, `Data10`, `Data11`, `Data12`, `Data13`, `Data14`, `Data15`, `Data16`, `Data17`, `Data18`, `Data19`, `Data20`, `Data21`, `Data22`, `Data23`, `Data24`, `Data25`, `Data26`, `Data27`, `Data28`, `Data29`, `Data30`, `Data31`, `Data32`, `RequiredLevel`, `AIName`, `ScriptName`, `VerifiedBuild`) 
 VALUES (195660, 8, 299, 'Krennan Aranas Spell Focus', '', '', '', 1, 1630, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', 1);
 
 DELETE FROM `gameobject` WHERE `id` IN (301027, 195660);
 INSERT INTO `gameobject` VALUES
-(905000, 301027, 654, 1, 1, 1, 0, 0, 0, -1, -1674.46, 1344.95, 15.1352, 0, 0, 0, 0, 0, 300, 0, 0, 1, '', 0),
-(905001, 195660, 654, 1, 1, 1, 0, 0, 0, -1, -1674.46, 1344.95, 15.1352, 0, 0, 0, 0, 0, 300, 0, 0, 1, '', 0);
+(905000, 301027, 654, 1, 1, 1, 0, 171, 0, -1, -1674.46, 1344.95, 15.1352, 0, 0, 0, 0, 0, 300, 0, 0, 1, '', 0),
+(905001, 195660, 654, 1, 1, 1, 0, 171, 0, -1, -1674.46, 1344.95, 15.1352, 0, 0, 0, 0, 0, 300, 0, 0, 1, '', 0);
 
--- Greymane's horse 35905
+DELETE FROM `gameobject_addon` WHERE `guid`IN (301027, 195660);
+INSERT INTO `gameobject_addon` (`guid`, `parent_rotation0`, `parent_rotation1`, `parent_rotation2`, `parent_rotation3`, `invisibilityType`, `invisibilityValue`, `WorldEffectID`) VALUES 
+(301027, 0, 0, 0, 1, 8, 1000, 0),
+(195660, 0, 0, 0, 1, 8, 1000, 0);
 
+INSERT INTO spell_area (`spell`, `area`, `quest_start`, `quest_end`, `quest_start_status`, `quest_end_status`) 
+VALUES (49416, 4755, 14293, 14294, 74, 64);
 
-
+INSERT INTO spell_area (`spell`, `area`, `quest_start`, `quest_end`, `quest_start_status`, `quest_end_status`) 
+VALUES (49416, 4755, 14293, 14294, 74, 64);
