@@ -63,5 +63,10 @@ INSERT INTO `gameobject` VALUES
 (905000, 301027, 654, 1, 1, 1, 0, 0, 0, -1, -1674.46, 1344.95, 15.1352, 0, 0, 0, 0, 0, 300, 0, 0, 1, '', 0),
 (905001, 195660, 654, 1, 1, 1, 0, 0, 0, -1, -1674.46, 1344.95, 15.1352, 0, 0, 0, 0, 0, 300, 0, 0, 1, '', 0);
 
+DELETE FROM `gameobject_addon` WHERE `guid`IN (301027, 195660);
+INSERT INTO `gameobject_addon` (`guid`, `parent_rotation0`, `parent_rotation1`, `parent_rotation2`, `parent_rotation3`, `invisibilityType`, `invisibilityValue`, `WorldEffectID`) VALUES 
+(301027, 0, 0, 0, 1, 8, 1000, 0),
+(195660, 0, 0, 0, 1, 8, 1000, 0);
+
 INSERT INTO spell_area (`spell`, `area`, `quest_start`, `quest_end`, `quest_start_status`, `quest_end_status`) 
 VALUES (49416, 4755, 14293, 14294, 74, 64);
