@@ -1,7 +1,0 @@
--- Status needs to be added under each quest to know if it is working or not.
--- Statuses:
-	- OK : works fine, but have to work on some element
-	- NOT WORK : quest is not working on a proper way
-	- FULL : Blizzlike
-
--- Panda - Wandering Island
