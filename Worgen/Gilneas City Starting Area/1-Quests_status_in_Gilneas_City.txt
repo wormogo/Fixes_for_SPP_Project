@@ -100,10 +100,12 @@
 	- full
 	
 -- Save Krennan Aranas - 14293
-	- not work 
-	- the spells are wrongly set, waypoints and scripst missing
+	- OK 
+	- waypoints does not start
 	- the canons don't fire
-	- phase shift to 172
+	- It has phase issue : Phase 170 has to be removed from player 
+	- horse control manual, 
+	- Krennan is not on the tree.
 	
 -- Time To Regroup - 14294
 	- full
