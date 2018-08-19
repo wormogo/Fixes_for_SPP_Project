@@ -79,4 +79,3 @@ UPDATE creature SET PhaseID = 170 where GUID = 210115271 and PhaseID = 0;
 
 -- NPC commandered Cannon
 UPDATE `creature_template` SET `AIName`='', `ScriptName`='npc_commandeered_cannon_35914' WHERE `entry` IN (35914);
-
