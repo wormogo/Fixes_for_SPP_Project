@@ -1,4 +1,5 @@
 -- SACRIFICES
+
 DELETE FROM vehicle_template_accessory WHERE entry IN (36283,35905,35231);
 INSERT INTO `vehicle_template_accessory` (`entry`, `accessory_entry`, `seat_id`, `minion`, `description`, `summontype`, `summontimer`) VALUES
 (36283, 36292, 2, 0, '36283 - 36292', 0, 0), -- 36283 - 36292
