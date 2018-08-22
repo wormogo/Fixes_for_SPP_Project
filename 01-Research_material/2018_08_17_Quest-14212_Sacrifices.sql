@@ -1,4 +1,9 @@
 -- SACRIFICES
+DELETE FROM vehicle_template_accessory WHERE entry IN (36283,35905,35231);
+INSERT INTO `vehicle_template_accessory` (`entry`, `accessory_entry`, `seat_id`, `minion`, `description`, `summontype`, `summontimer`) VALUES
+(36283, 36292, 2, 0, '36283 - 36292', 0, 0), -- 36283 - 36292
+(35905, 35907, 1, 0, '35905 - 35907', 3, 5000), -- 35905 - 35907
+(35231, 35230, 1, 0, '35231 - 35230', 3, 5000); -- 35231 - 35230
 
 UPDATE `creature_template` SET `npcflag`=16777216 WHERE `entry` IN (44427, 44429);
 DELETE FROM `npc_spellclick_spells` WHERE `npc_entry` IN (35231, 44427, 44429);
