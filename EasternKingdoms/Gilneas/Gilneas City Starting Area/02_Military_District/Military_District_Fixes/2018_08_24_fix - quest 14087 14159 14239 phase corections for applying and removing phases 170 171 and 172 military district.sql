@@ -1,3 +1,4 @@
+
 -- fix - quest 14087 14159 14239 phase corections for applying and removeing phases 170 171 and 172 military district
 
 DELETE FROM `spell_area` WHERE `spell`=59073 AND `area`=4757 AND `quest_start`=0 AND `aura_spell`=0 AND `teamId`=-1 AND `racemask`=0 AND `gender`=2;
