@@ -1,0 +1,20 @@
+The Cape of Stranglethorn, Horde
+
+Backdoor Dealings |
+ quest=26809, Totem of hir'eek object=204361 | chat dialoque wont work.
+
+Let's see what you've got, zanzil |
+ quest=26534, npc=43203 npc=43204 npc=43205 | lacks the dialogue option to offer the drink 
+
+The holy water of clarity |
+ Both quest=26433 and quest=26590, object=759 "The holy spring" does not contain item=58811
+
+Looks like a tauren pirate hat to me | 
+ quest=26630, npc=2663 dialogue options dosen't work in order to get item=59148
+
+Seeing where your loyalties lie | 
+ quest=26629, requires item given in quest above "Looks like a tauren pirate hat to me"
+
+The final voyage of the brashtide |
+ quest=26697, Nothing seems to spawn, wind rider / fly bomb mission, big event / state of city, very difficult i'd assume
+
