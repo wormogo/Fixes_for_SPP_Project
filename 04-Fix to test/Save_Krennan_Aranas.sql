@@ -2,7 +2,7 @@ DELETE FROM areatrigger_scripts WHERE entry IN (35905, 3590500);
 INSERT INTO areatrigger_scripts (entry, ScriptName) VALUES (35905, 'SmartTrigger');
 INSERT INTO areatrigger_scripts (entry, ScriptName) VALUES (3590500, 'SmartTrigger');
 
-ELETE FROM vehicle_template_accessory WHERE entry IN (35905);
+DELETE FROM vehicle_template_accessory WHERE entry IN (35905);
 INSERT INTO vehicle_template_accessory (`entry`, `accessory_entry`, `seat_id`, `minion`, `description`, `summontype`, `summontimer`) VALUES
 (35905, 35907, 1, 0, '35905 - 35907', 3, 300000); -- 35905 - 35907 - 5 minutes summontime - King GreyMane Horse seat definition
 
