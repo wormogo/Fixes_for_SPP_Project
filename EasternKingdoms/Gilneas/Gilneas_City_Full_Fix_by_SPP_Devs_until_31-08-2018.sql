@@ -1,12 +1,225 @@
--- CREATURE SECTION
--- Creature Model Update
+-- Gilneas City rework in SPP Legion 7.3.5
+-- Custom close to Blizzlike solutions made by Fatliner, Monad and Wormogo
+-- in 2018
+
+-- Broadcast addition to have data for further work in creature text
+-- Sniff gave incorrect sound IDs to creature_text needed to remove. More work needed to add available sounds to creature_text in this area
+UPDATE creature_text SET sound = 0 WHERE Sound = 19634 AND creatureID <> 35906;
+
+UPDATE creature_text SET BroadcastTextID = 36618 WHERE creatureID = 34571;
+UPDATE creature_text SET BroadcastTextID = 39313 WHERE creatureID = 34851;
+UPDATE creature_text SET BroadcastTextID = 44235 WHERE creatureID = 34913;
+UPDATE creature_text SET BroadcastTextID = 35240 WHERE creatureID = 34981;
+UPDATE creature_text SET BroadcastTextID = 38602 WHERE creatureID = 35112;
+UPDATE creature_text SET BroadcastTextID = 38601 WHERE creatureID = 35115;
+UPDATE creature_text SET BroadcastTextID = 35498 WHERE creatureID = 35230;
+UPDATE creature_text SET BroadcastTextID = 38739 WHERE creatureID = 35369;
+UPDATE creature_text SET BroadcastTextID = 38744 WHERE creatureID = 35378;
+UPDATE creature_text SET BroadcastTextID = 36092 WHERE creatureID = 35550;
+UPDATE creature_text SET BroadcastTextID = 36091 WHERE creatureID = 35550;
+UPDATE creature_text SET BroadcastTextID = 36038 WHERE creatureID = 35836;
+UPDATE creature_text SET BroadcastTextID = 36039 WHERE creatureID = 35836;
+UPDATE creature_text SET BroadcastTextID = 36094 WHERE creatureID = 35840;
+UPDATE creature_text SET BroadcastTextID = 36078 WHERE creatureID = 35905;
+UPDATE creature_text SET BroadcastTextID = 38729 WHERE creatureID = 35907;
+UPDATE creature_text SET BroadcastTextID = 36617 WHERE creatureID = 36132;
+UPDATE creature_text SET BroadcastTextID = 36209 WHERE creatureID = 36207;
+UPDATE creature_text SET BroadcastTextID = 36312 WHERE creatureID = 36231;
+UPDATE creature_text SET BroadcastTextID = 36310 WHERE creatureID = 36231;
+UPDATE creature_text SET BroadcastTextID = 36315 WHERE creatureID = 36231;
+UPDATE creature_text SET BroadcastTextID = 36336 WHERE creatureID = 36330;
+UPDATE creature_text SET BroadcastTextID = 36344 WHERE creatureID = 36331;
+UPDATE creature_text SET BroadcastTextID = 36340 WHERE creatureID = 36332;
+UPDATE creature_text SET BroadcastTextID = 36341 WHERE creatureID = 36332;
+UPDATE creature_text SET BroadcastTextID = 50192 WHERE creatureID = 50415;
+UPDATE creature_text SET BroadcastTextID = 50264 WHERE creatureID = 50474;
+
+-- End of Broadcast section
+
+-- Sacrifices quest 14212
+
+DELETE FROM areatrigger_scripts WHERE entry IN (35231, 3523100);
+INSERT INTO areatrigger_scripts (entry, ScriptName) VALUES (35231, 'SmartTrigger');
+INSERT INTO areatrigger_scripts (entry, ScriptName) VALUES (3523100, 'SmartTrigger');
+
+DELETE FROM creature_text WHERE CreatureID = 35230 AND  GroupID = 1 AND  ID = 0; -- delete unneeded sound and text from 35230, otherwise it repeats a text and sound by every 2 second. This does not belongs to this NPC.
+
+DELETE FROM vehicle_template_accessory WHERE entry IN (36283,35905,35231);
+INSERT INTO vehicle_template_accessory (`entry`, `accessory_entry`, `seat_id`, `minion`, `description`, `summontype`, `summontimer`) VALUES
+(36283, 36292, 2, 0, '36283 - 36292', 0, 0), -- 36283 - 36292 Forsaken Catapult seat definition
+(35905, 35907, 1, 0, '35905 - 35907', 3, 300000), -- 35905 - 35907 - summontime - King GreyMane Horse seat definition
+(35231, 35230, 1, 0, '35231 - 35230', 3, 300000); -- 35231 - 35230 - summontime - Lord Crowley's Horse seat definition
+
+UPDATE creature_template SET npcflag =16777216 WHERE  entry IN (44427, 44429);
+DELETE FROM npc_spellclick_spells WHERE npc_entry IN (35231, 44427, 44429);
+INSERT INTO npc_spellclick_spells VALUES 
+(35231, 63151, 1, 0), -- Lord Crowley's horse (summoned) - Ride Vehicle spell
+(44427, 67001, 1, 0), -- Lord Crowley's Horse (spawned quest start) - Summon Crowley's Horse 35231
+(44429, 82992, 1, 0); -- Lord Crowley's Horse (spawned quest end Cathedral) - Summon Crowley's Horse 35231
+
+UPDATE `creature_template` SET `AIName`='SmartAI', `ScriptName`='', `spell1`=67063, `unit_flags`=10, MovementType = 2 WHERE `entry` IN (35231);
+UPDATE `creature_template` SET `AIName`='SmartAI', `ScriptName`='' WHERE `entry` IN (35230);
+DELETE FROM smart_scripts WHERE entryorguid IN (35231, 3523100);
+INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `event_param_string`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES 
+(35231, 0, 0, 0, 54, 0, 100, 512, 0, 0, 0, 0, '', 80, 3523100, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Crowley Hors Start Script'),
+(35231, 0, 1, 0, 40, 0, 100, 512, 10, 35231, 0, 0, '', 54, 1000, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'WP Paused'),
+(35231, 0, 2, 3, 40, 0, 100, 512, 22, 35231, 0, 0, '', 11, 68576, 4, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Despawn'),
+(35231, 0, 3, 0, 61, 0, 100, 512, 0, 0, 0, 0, '', 41, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'WP Reached Despawn'),
+(35231, 0, 4, 0, 6, 0, 100, 512, 0, 0, 0, 0, '', 41, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'On Die'),
+(35231, 0, 5, 6, 60, 0, 100, 512, 4500, 4500, 4500, 4500, '', 1, 1, 1, 0, 0, 0, 0, 19, 35230, 5, 0, 0, 0, 0, 0, 'WP Reached'),
+(35231, 0, 6, 7, 61, 0, 100, 512, 0, 0, 0, 0, '', 28, 67063, 0, 0, 0, 0, 0, 19, 35230, 5, 0, 0, 0, 0, 0, 'Remove Buff'),
+(35231, 0, 7, 8, 61, 0, 100, 512, 0, 0, 0, 0, '', 28, 67063, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 'Remove Buff'),
+(35231, 0, 8, 0, 61, 0, 100, 512, 0, 0, 0, 0, '', 28, 67063, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Remove Buff'),
+(3523100, 9, 0, 0, 0, 0, 100, 512, 1500, 1500, 1500, 1500, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1735.01, 1653.01, 20.49, 0, ''),
+(3523100, 9, 1, 0, 0, 0, 100, 512, 100, 100, 100, 100, '', 97, 15, 15, 0, 1709, 20, 0, 1, 0, 0, 0, -1714.02, 1666.37, 20.57, 0, ''),
+(3523100, 9, 2, 0, 0, 0, 100, 512, 0, 0, 0, 0, '', 1, 0, 1, 0, 0, 0, 0, 19, 35230, 5, 0, 0, 0, 0, 0, ''),
+(3523100, 9, 3, 0, 0, 0, 100, 512, 1800, 1800, 1800, 1800, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1695.77, 1662.28, 20.5008, 0, ''),
+(3523100, 9, 4, 0, 0, 0, 100, 512, 1800, 1800, 1800, 1800, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1678.26, 1648.95, 20.6123, 0, ''),
+(3523100, 9, 5, 0, 0, 0, 100, 512, 1500, 1500, 1500, 1500, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1669.8, 1634.52, 20.4897, 0, ''),
+(3523100, 9, 6, 0, 0, 0, 100, 512, 3000, 3000, 3000, 3000, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1678.61, 1615.53, 20.4897, 0, ''),
+(3523100, 9, 7, 0, 0, 0, 100, 512, 1500, 1500, 1500, 1500, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1692.43, 1613.71, 20.4897, 0, ''),
+(3523100, 9, 8, 0, 0, 0, 100, 512, 1500, 1500, 1500, 1500, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1703.6, 1621.72, 20.4897, 0, ''),
+(3523100, 9, 9, 0, 0, 0, 100, 512, 2800, 2800, 2800, 2800, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1673.3, 1701.64, 20.4992, 0, ''),
+(3523100, 9, 10, 0, 0, 0, 100, 512, 4800, 4800, 4800, 4800, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1681.95, 1703.72, 20.4992, 0, ''),
+(3523100, 9, 11, 0, 0, 0, 100, 512, 5200, 5200, 5200, 5200, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1646.58, 1708.64, 20.4918, 0, ''),
+(3523100, 9, 12, 0, 0, 0, 100, 512, 4200, 4200, 4200, 4200, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1611.8, 1710.91, 22.6814, 0, ''),
+(3523100, 9, 13, 0, 0, 0, 100, 512, 5200, 5200, 5200, 5200, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1589.02, 1710.71, 20.4852, 0, ''),
+(3523100, 9, 14, 0, 0, 0, 100, 512, 3000, 3000, 3000, 3000, '', 97, 15, 15, 0, 1709, 20, 0, 1, 0, 0, 0, -1572.31, 1709.16, 20.4861, 0, ''),
+(3523100, 9, 15, 0, 0, 0, 100, 512, 1500, 1500, 1500, 1500, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1549.35, 1705.51, 20.4861, 0, ''),
+(3523100, 9, 16, 0, 0, 0, 100, 512, 3400, 3400, 3400, 3400, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1522.72, 1696.79, 20.4861, 0, ''),
+(3523100, 9, 17, 0, 0, 0, 100, 512, 4300, 4300, 4300, 4300, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1490.45, 1679.68, 20.4861, 0, ''),
+(3523100, 9, 18, 0, 0, 0, 100, 512, 4700, 4700, 4700, 4700, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1435.31, 1623.39, 20.4861, 0, ''),
+(3523100, 9, 19, 0, 0, 0, 100, 512, 4500, 4500, 4500, 4500, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1418.88, 1592.74, 20.4861, 0, ''),
+(3523100, 9, 20, 0, 0, 0, 100, 512, 4500, 4500, 4500, 4500, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1414.37, 1575.23, 20.4802, 0, ''),
+(3523100, 9, 21, 0, 0, 0, 100, 512, 3000, 3000, 3000, 3000, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1416.5, 1566.34, 20.4821, 0, ''),
+(3523100, 9, 22, 0, 0, 0, 100, 512, 3000, 3000, 3000, 3000, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1444.24, 1553.16, 20.4839, 0, ''),
+(3523100, 9, 23, 0, 0, 0, 100, 512, 3000, 3000, 3000, 3000, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1469.58, 1560.96, 20.4839, 0, ''),
+(3523100, 9, 24, 0, 0, 0, 100, 512, 2500, 2500, 2500, 2500, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1505.88, 1566.46, 20.4858, 0, ''),
+(3523100, 9, 25, 0, 0, 0, 100, 512, 2500, 2500, 2500, 2500, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1517.87, 1568.61, 26.2918, 0, ''),
+(3523100, 9, 26, 0, 0, 0, 100, 512, 2500, 2500, 2500, 2500, '', 69, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, -1535.83, 1572.85, 28.9941, 0, ''),
+(3523100, 9, 27, 0, 0, 0, 100, 512, 4500, 4500, 4500, 4500, '', 41, 1, 0, 0, 0, 0, 0, 19, 35230, 5, 0, 0, 0, 0, 0, ''),
+(3523100, 9, 28, 0, 0, 0, 100, 512, 100, 100, 100, 100, '', 28, 67063, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, ''),
+(3523100, 9, 29, 0, 0, 0, 100, 512, 0, 0, 0, 0, '', 11, 68576, 4, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, '');
+
+-- End of Sacrifices DB section
+
+-- Model fixes by Monad
+-- Various fixes by Monad in Worgen Zone
 
 -- fix - corect models for captive worgen 36698 26797 36798
 UPDATE creature_template SET modelid1=30294 AND modelid2=30293 AND modelid3=30295 AND modelid4=0 WHERE entry IN (36698);
 UPDATE creature_template SET modelid1=30295 AND modelid2=30294 AND modelid3=30293 AND modelid4=0 WHERE entry IN (36698);
 UPDATE creature_template SET modelid1=30293 AND modelid2=30295 AND modelid3=30294 AND modelid4=0 WHERE entry IN (36698);
 
--- Creature spawn section
+-- fix - corect phase shifts duskhaven
+DELETE FROM `spell_area` WHERE `spell`=68481 AND `area`=4786 AND `quest_start`=14375 AND `aura_spell`=0 AND `teamId`=-1 AND `racemask`=0 AND `gender`=2;
+INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
+VALUES (68481, 4786, 14375, 14321, 0, -1, 0, 2, 3, 64, 64);
+
+DELETE FROM `spell_area` WHERE `spell`=68482 AND `area`=4786 AND `quest_start`=14321 AND `aura_spell`=0 AND `teamId`=-1 AND `racemask`=0 AND `gender`=2;
+INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
+VALUES (68482, 4786, 14321, 0, 0, -1, 0, 2, 3, 64, 0);
+
+-- End of model fixes
+
+-- Worgen vehicle template accesory and NPC Splellclick Spells fix by Wormogo
+
+-- VEHICLE TEMPLATE ACCESSORIES
+
+DELETE FROM vehicle_template_accessory WHERE entry IN (36283, 35905, 35231);
+INSERT INTO `vehicle_template_accessory` (`entry`, `accessory_entry`, `seat_id`, `minion`, `description`, `summontype`, `summontimer`) VALUES
+(36283, 36292, 2, 0, '36283 - 36292', 0, 0), -- 36283 - 36292
+(35905, 35907, 1, 0, '35905 - 35907', 3, 5000), -- 35905 - 35907
+(35231, 35230, 1, 0, '35231 - 35230', 3, 5000); -- 35231 - 35230
+
+DELETE FROM vehicle_template_accessory WHERE entry IN (37939, 38363, 44928, 38755, 43336, 43337);
+INSERT INTO `vehicle_template_accessory` (`entry`, `accessory_entry`, `seat_id`, `minion`, `description`, `summontype`, `summontimer`) VALUES
+(37939, 37938, 0, 0, '37939 - 37938', 0, 0), -- 37939 - 37938
+(38363, 38366, 0, 0, '38363 - 38366', 0, 0), -- 38363 - 38366
+(44928, 51409, 6, 0, '44928 - 51409', 0, 0), -- 44928 - 51409
+(44928, 43907, 4, 0, '44928 - 43907', 0, 0), -- 44928 - 43907
+(44928, 36138, 3, 0, '44928 - 36138', 0, 0), -- 44928 - 36138
+(44928, 44460, 2, 0, '44928 - 44460', 0, 0), -- 44928 - 44460
+(44928, 38853, 1, 0, '44928 - 38853', 0, 0), -- 44928 - 38853
+(38755, 43338, 0, 0, '38755 - 43338', 0, 0), -- 38755 - 43338
+(38755, 43338, 1, 0, '38755 - 43338', 0, 0), -- 38755 - 43338
+(43336, 43338, 1, 0, '43336 - 43338', 0, 0), -- 43336 - 43338
+(43336, 43338, 0, 0, '43336 - 43338', 0, 0), -- 43336 - 43338
+(43337, 51409, 6, 0, '43337 - 51409', 0, 0), -- 43337 - 51409
+(43337, 37946, 5, 0, '43337 - 37946', 0, 0), -- 43337 - 3794
+(43337, 43907, 4, 0, '43337 - 43907', 0, 0), -- 43337 - 43907
+(43337, 36138, 3, 0, '43337 - 36138', 0, 0), -- 43337 - 36138
+(43337, 44460, 2, 0, '43337 - 44460', 0, 0), -- 43337 - 44460
+(43337, 38853, 1, 0, '43337 - 38853', 0, 0), -- 43337 - 38853
+(44928, 37946, 5, 0, '44928 - 37946', 0, 0); -- 44928 - 37946
+
+-- SPELLCLICK SPELLS
+DELETE FROM npc_spellclick_spells WHERE npc_entry IN (35317, 44427,44429, 36283, 36287, 36288, 36289);
+INSERT INTO `npc_spellclick_spells` (`npc_entry`, `spell_id`, `cast_flags`, `user_type`) VALUES
+(35317, 43671, 0, 0),
+(44427, 56685, 0, 0),
+(44429, 56685, 0, 0),
+(36283, 69434, 0, 0),
+(36289, 68596, 0, 0),
+(36288, 68598, 0, 0),
+(36287, 68597, 0, 0);
+
+DELETE FROM npc_spellclick_spells WHERE npc_entry IN (36440, 36459, 36540, 44928, 38755, 37807, 38377, 38150, 38615, 43747, 53522);
+INSERT INTO `npc_spellclick_spells` (`npc_entry`, `spell_id`, `cast_flags`, `user_type`) VALUES
+(36440, 68735, 0, 0),
+(36459, 68743, 0, 0),
+(36540, 94654, 0, 0),
+(44928, 72767, 0, 0),
+(38755, 72767, 0, 0),
+(37807, 69434, 0, 0),
+(38377, 69434, 0, 0),
+(38150, 71238, 0, 0),
+(38615, 72472, 0, 0),
+(43747, 81877, 0, 0),
+(53522, 99339, 0, 0);
+
+-- End of Vehicle and Spellclick Section
+
+-- Various Fixes by Monad in Gilneas City
+
+-- fix - quest 14087 14159 14239 phase corections for applying and removeing phases 170 171 and 172 military district
+
+DELETE FROM `spell_area` WHERE `spell`=59073 AND `area`=4757 AND `quest_start`=0 AND `aura_spell`=0 AND `teamId`=-1 AND `racemask`=0 AND `gender`=2;
+
+DELETE FROM `spell_area` WHERE `spell`=59073 AND `area`=4756 AND `quest_start`=14078 AND `aura_spell`=0 AND `teamId`=-1 AND `racemask`=0 AND `gender`=2;
+INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
+VALUES (59073, 4756, 14078, 14159, 0, -1, 0, 2, 3, 64, 64);
+
+DELETE FROM `spell_area` WHERE `spell`=59073 AND `area`=4757 AND `quest_start`=14078 AND `aura_spell`=0 AND `teamId`=-1 AND `racemask`=0 AND `gender`=2;
+INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
+VALUES (59073, 4757, 14078, 14159, 0, -1, 0, 2, 3, 64, 64);
+
+DELETE FROM `spell_area` WHERE `spell`=59074 AND `area`=4757 AND `quest_start`=14159 AND `aura_spell`=0 AND `teamId`=-1 AND `racemask`=0 AND `gender`=2;
+INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
+VALUES (59074, 4757, 14159, 14293, 0, -1, 0, 2, 3, 64, 64);
+
+DELETE FROM `spell_area` WHERE `spell`=59087 AND `area`=4757 AND `quest_start`=14293 AND `aura_spell`=0 AND `teamId`=-1 AND `racemask`=0 AND `gender`=2;
+INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
+VALUES (59087, 4757, 14293, 0, 0, -1, 0, 2, 3, 64, 0);
+
+-- End of Various fixes by Monad
+
+-- Cellar Door fix in Gilneas City by Monad
+
+-- fix - 195430 cellar door type door and autoclose 11 seconds
+DELETE FROM `gameobject` WHERE `guid`=20406504;
+INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseUseFlags`, `PhaseId`, `PhaseGroup`, `terrainSwapMap`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `isActive`, `ScriptName`, `VerifiedBuild`) 
+VALUES (20406504, 195430, 654, 4755, 4756, 1, 0, 0, 379, -1, -1790.04, 1435.53, 21.7363, 1.66817, -0.0106378, 0.0138349, 0.740533, 0.671794, 120, 255, 1, 0, '', 25383);
+DELETE FROM `gameobject_addon` WHERE `guid`=20406504;
+INSERT INTO `gameobject_addon` (`guid`, `parent_rotation0`, `parent_rotation1`, `parent_rotation2`, `parent_rotation3`, `invisibilityType`, `invisibilityValue`, `WorldEffectID`) 
+VALUES (20406504, 0, 0, 0.942641, -0.333807, 0, 0, 0);
+UPDATE `gameobject_template` SET  `Data0`=0 AND `Data1`=0 AND `Data2`=11000  WHERE entry=195430;
+
+-- End of door fix
+
+-- Worgen SPAWN and QUEST SECTION by Wormogo - except Gilneas City
+
+-- CREATURE SECTION
 
 SET @CGUID := 800000;
 
@@ -8531,72 +8744,297 @@ INSERT INTO `quest_visual_effect` (`ID`, `Index`, `VisualEffect`, `VerifiedBuild
 (265467, 0, 1976, 25549),
 (268950, 0, 988, 25549);
 
---- VEHICLE TEMPLATE ACCESSORIES
+-- End of Spawn and Quest section
 
-DELETE FROM vehicle_template_accessory WHERE npc_entry IN (36283, 35905, 35231);
-INSERT INTO `vehicle_template_accessory` (`entry`, `accessory_entry`, `seat_id`, `minion`, `description`, `summontype`, `summontimer`) VALUES
-(36283, 36292, 2, 0, '36283 - 36292', 0, 0), -- 36283 - 36292
-(35905, 35907, 1, 0, '35905 - 35907', 3, 5000), -- 35905 - 35907
-(35231, 35230, 1, 0, '35231 - 35230', 3, 5000); -- 35231 - 35230
+-- Save Krennan Aranas Quest fix by Wormogo and Various Fixes by Monad in Gilneas City
 
-DELETE FROM vehicle_template_accessory WHERE npc_entry IN (37939, 38363, 44928, 38755, 43336, 43337);
-INSERT INTO `vehicle_template_accessory` (`entry`, `accessory_entry`, `seat_id`, `minion`, `description`, `summontype`, `summontimer`) VALUES
-(37939, 37938, 0, 0, '37939 - 37938', 0, 0), -- 37939 - 37938
-(38363, 38366, 0, 0, '38363 - 38366', 0, 0), -- 38363 - 38366
-(44928, 51409, 6, 0, '44928 - 51409', 0, 0), -- 44928 - 51409
-(44928, 43907, 4, 0, '44928 - 43907', 0, 0), -- 44928 - 43907
-(44928, 36138, 3, 0, '44928 - 36138', 0, 0), -- 44928 - 36138
-(44928, 44460, 2, 0, '44928 - 44460', 0, 0), -- 44928 - 44460
-(44928, 38853, 1, 0, '44928 - 38853', 0, 0), -- 44928 - 38853
-(38755, 43338, 0, 0, '38755 - 43338', 0, 0), -- 38755 - 43338
-(38755, 43338, 1, 0, '38755 - 43338', 0, 0), -- 38755 - 43338
-(43336, 43338, 1, 0, '43336 - 43338', 0, 0), -- 43336 - 43338
-(43336, 43338, 0, 0, '43336 - 43338', 0, 0), -- 43336 - 43338
-(43337, 51409, 6, 0, '43337 - 51409', 0, 0), -- 43337 - 51409
-(43337, 37946, 5, 0, '43337 - 37946', 0, 0), -- 43337 - 3794
-(43337, 43907, 4, 0, '43337 - 43907', 0, 0), -- 43337 - 43907
-(43337, 36138, 3, 0, '43337 - 36138', 0, 0), -- 43337 - 36138
-(43337, 44460, 2, 0, '43337 - 44460', 0, 0), -- 43337 - 44460
-(43337, 38853, 1, 0, '43337 - 38853', 0, 0), -- 43337 - 38853
-(44928, 37946, 5, 0, '44928 - 37946', 0, 0); -- 44928 - 37946
+-- Save Krennan Aranas (14293)
+UPDATE `creature_template` SET `AIName`='SmartAI', `ScriptName`='' WHERE `entry` IN (35550);
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (35550);
+INSERT INTO `smart_scripts` VALUES
+(35550, 0, 0, 0, 1, 0, 100, 0, 0, 0, 30000, 30000, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'King Genn Greymane - Out Of Combat - Say Text'),
+(35550, 0, 1, 0, 19, 0, 100, 0, 14293, 0, 0, 0, 0, 11, 68232, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 'King Genn Greymane - Accepted Quest - Cast Gilneas Prison Periodic');
+UPDATE `creature_template` SET `AIName`='SmartAI', `ScriptName`='', `unit_flags`=33280, `flags_extra`=2 WHERE `entry` IN (35753);
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (35753);
+INSERT INTO `smart_scripts` VALUES
+(35753, 0, 0, 0, 1, 0, 100, 0, 0, 0, 60000, 60000, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - Out Of Combat - Say Text'),
+(35753, 0, 1, 0, 8, 0, 100, 1, 68219, 0, 0, 0, 0, 41, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - On Spellhit - Forced Despawn');
+UPDATE `creature_template` SET `AIName`='SmartAI', `ScriptName`='', `spell1`=68219, `unit_flags`=10 WHERE `entry` IN (35905);
+UPDATE creature_template SET speed_run = 2.50 WHERE entry = 35905;
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (35905, 3590500);
+INSERT INTO `smart_scripts` VALUES
+(35905, 0, 0, 1, 27, 0, 100, 1, 0, 0, 0, 0, 0, 80, 3590500, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'King Greymane\'s Horse - On Passanger Boarded - Start Timed Action Script'),
+(35905, 0, 1, 0, 61, 0, 100, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'King Greymane\'s Horse - On Link - Allow Combat Movement'),
+(35905, 0, 2, 0, 40, 0, 100, 0, 6, 0, 0, 0, 0, 97, 25, 10, 0, 0, 0, 0, 1, 0, 0, 0, -1674.46, 1344.95, 15.1352, 0, 'King Greymane\'s Horse - On WP Reached - Jump to PoS'),
+(35905, 0, 3, 4, 40, 0, 100, 0, 16, 0, 0, 0, 0, 45, 1, 1, 0, 0, 0, 0, 11, 35907, 10, 0, 0, 0, 0, 0, 'King Greymane\'s Horse - On WP Reached - Set Data'),
+(35905, 0, 4, 0, 61, 0, 100, 0, 0, 0, 0, 0, 0, 41, 5000, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'King Greymane\'s Horse - On WP Reached - Despawn'),
+(3590500, 9, 0, 0, 0, 0, 100, 0, 5000, 5000, 5000, 5000, 0, 53, 1, 35905, 0, 14293, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'King Greymane\'s Horse - Script - Start WP Movement');
+UPDATE `creature_template` SET `AIName`='SmartAI', `ScriptName`='' WHERE `entry` IN (35907);
+DELETE FROM `smart_scripts` WHERE `entryorguid` IN (35907);
+INSERT INTO `smart_scripts` VALUES
+(35907, 0, 0, 0, 11, 0, 100, 1, 0, 0, 0, 0, 0, 11, 46598, 0, 0, 0, 0, 0, 11, 35905, 10, 0, 0, 0, 0, 0, 'Krennan Aranas - On Respawn - Cast Spell'),
+(35907, 0, 1, 2, 38, 0, 100, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - on Data Set - Say Text'),
+(35907, 0, 2, 3, 61, 0, 100, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - on Data Set - Prevent Combat Movement'),
+(35907, 0, 3, 0, 61, 0, 100, 0, 0, 0, 0, 0, 0, 41, 1000, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'Krennan Aranas - on Data Set - Forced Despawn');
+DELETE FROM `creature_text` WHERE `creatureid` IN (35550, 35753, 35907);
+INSERT INTO `creature_text` VALUES
+(35550, 0, 0, 'Fire!', 14, 0, 100, 0, 0, 0, 0, 0, ''),
+(35550, 0, 1, 'Hold the barricades! Do not give them an inch!', 14, 0, 100, 0, 0, 0, 0, 0, ''),
+(35550, 0, 2, 'Keep them back!', 14, 0, 100, 0, 0, 0, 0, 0, ''),
+(35753, 0, 0, 'Help! Up here!', 14, 0, 100, 0, 0, 0, 0, 0, ''),
+(35907, 1, 0, 'Thank you! I owe you my life.', 12, 0, 100, 0, 0, 0, 0, 0, '');
 
--- SPELLCLICK SPELLS
-DELETE FROM npc_spellclick_spells WHERE npc_entry IN (35317, 44427,44429, 36283, 36287, 36288, 36289);
-INSERT INTO `npc_spellclick_spells` (`npc_entry`, `spell_id`, `cast_flags`, `user_type`) VALUES
-(35317, 43671, 0, 0),
-(44427, 56685, 0, 0),
-(44429, 56685, 0, 0),
-(36283, 69434, 0, 0),
-(36289, 68596, 0, 0),
-(36288, 68598, 0, 0),
-(36287, 68597, 0, 0);
+DELETE FROM `waypoints` WHERE `entry` IN (35905);
+INSERT INTO `waypoints` VALUES 
+(35905, 16, -1771.46, 1430.1, 19.8183, ''),
+(35905, 15, -1766.16, 1404.17, 19.8109, ''),
+(35905, 14, -1746.3, 1375.96, 19.97, ''),
+(35905, 13, -1725.38, 1356.36, 19.8184, ''),
+(35905, 12, -1705.86, 1350.95, 19.8964, ''),
+(35905, 11, -1685.27, 1355.4, 15.1356, ''),
+(35905, 10, -1672.07, 1362.12, 15.135, ''),
+(35905, 9, -1666.29, 1355.75, 15.135, ''),
+(35905, 8, -1668.71, 1348.29, 15.1366, ''),
+(35905, 7, -1674.46, 1344.95, 15.1352, ''),
+(35905, 6, -1707.42, 1345.95, 19.896, ''),
+(35905, 5, -1728.55, 1351.81, 19.6012, ''),
+(35905, 4, -1755.42, 1368.4, 19.7833, ''),
+(35905, 3, -1777.13, 1369.23, 19.8021, ''),
+(35905, 2, -1790.45, 1383.17, 19.8166, ''),
+(35905, 1, -1800.37, 1407.18, 20.0265, '');
 
-DELETE FROM npc_spellclick_spells WHERE npc_entry IN (36440, 36459, 36540, 44928, 38755, 37807, 38377, 38150, 38615, 43747, 53522);
-INSERT INTO `npc_spellclick_spells` (`npc_entry`, `spell_id`, `cast_flags`, `user_type`) VALUES
-(36440, 68735, 0, 0),
-(36459, 68743, 0, 0),
-(36540, 94654, 0, 0),
-(44928, 72767, 0, 0),
-(38755, 72767, 0, 0),
-(37807, 69434, 0, 0),
-(38377, 69434, 0, 0),
-(38150, 71238, 0, 0),
-(38615, 72472, 0, 0),
-(43747, 81877, 0, 0),
-(53522, 99339, 0, 0);
-(38377, 69434, 0, 0),
-(38150, 71238, 0, 0),
-(38615, 72472, 0, 0),
-(43747, 81877, 0, 0),
-(53522, 99339, 0, 0);
+-- Keep it until fully tested:
+-- Save Krennan Spell Focus
+-- DELETE FROM gameobject_template WHERE entry = 195660;
+-- INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `IconName`, `castBarCaption`, `unk1`, `size`, `Data0`, `Data1`, `Data2`, `Data3`, `Data4`, `Data5`, `Data6`, `Data7`, `Data8`, `Data9`, `Data10`, `Data11`, `Data12`, `Data13`, `Data14`, `Data15`, `Data16`, `Data17`, `Data18`, `Data19`, `Data20`, `Data21`, `Data22`, `Data23`, `Data24`, `Data25`, `Data26`, `Data27`, `Data28`, `Data29`, `Data30`, `Data31`, `Data32`, `RequiredLevel`, `AIName`, `ScriptName`, `VerifiedBuild`) 
+-- VALUES (195660, 8, 299, 'Krennan Aranas Spell Focus', '', '', '', 1, 1630, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', 1);
 
--- Phase Fixes
+-- fix - gameobject spell focus 301027 for save krennan
+DELETE FROM `gameobject` WHERE `guid`=905000;
+INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseUseFlags`, `PhaseId`, `PhaseGroup`, `terrainSwapMap`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `isActive`, `ScriptName`, `VerifiedBuild`) 
+VALUES (905000, 301027, 654, 1, 1, 1, 0, 171, 0, -1, -1674.46, 1344.95, 15.1352, 0, 0, 0, 0, 0, 300, 0, 0, 1, '', 0);
 
--- fix - correct phase shifts duskhaven
-DELETE FROM `spell_area` WHERE `spell`=68481 AND `area`=4786 AND `quest_start`=14375 AND `aura_spell`=0 AND `teamId`=-1 AND `racemask`=0 AND `gender`=2;
+DELETE FROM `gameobject_addon` WHERE `guid`=905000;
+INSERT INTO `gameobject_addon` (`guid`, `parent_rotation0`, `parent_rotation1`, `parent_rotation2`, `parent_rotation3`, `invisibilityType`, `invisibilityValue`, `WorldEffectID`)
+ VALUES (905000, 0, 0, 0, 1, 8, 1000, 0);
+
+DELETE FROM spell_area WHERE spell = 49416 AND area = 4757;
+INSERT INTO spell_area (`spell`, `area`, `quest_start`, `quest_end`, `quest_start_status`, `quest_end_status`) 
+VALUES (49416, 4757, 14293, 14294, 74, 64);
+
+-- Lord Godfrey 35906 Quest Ender for Save Krennan Aranas
+UPDATE creature SET PhaseID = 172 where GUID = 210115272 and PhaseID = 171;
+UPDATE creature SET PhaseID = 170 where GUID = 210115271 and PhaseID = 0;
+
+-- NPC commandered Cannon
+UPDATE `creature_template` SET `AIName`='', `ScriptName`='npc_commandeered_cannon_35914' WHERE `entry` IN (35914);
+
+-- End of SAVE KRENNAN ARANAS QUEST FIX
+--
+
+-- fix - corect emotes 35369 josiah avery
+UPDATE creature_addon SET emote=375 WHERE guid=20556362;
+UPDATE creature_addon SET emote=431 WHERE guid=20556546;
+
+-- fix - Celestine of the Harvest 35873 corect spell 13236 cast
+UPDATE `creature_template` SET `AIName`='SmartAI', `scriptname`='' WHERE entry = 35873;
+DELETE FROM `smart_scripts` WHERE `entryorguid` = 35873 AND `id` = 0 AND `source_type` = 0 LIMIT 1;
+INSERT INTO `smart_scripts` (`entryorguid`,`source_type`,`id`,`link`,`event_type`,`event_phase_mask`,`event_chance`,`event_flags`,`event_param1`,`event_param2`,`event_param3`,`event_param4`,`action_type`,`action_param1`,`action_param2`,`action_param3`,`action_param4`,`action_param5`,`action_param6`,`target_type`,`target_param1`,`target_param2`,`target_param3`,`target_x`,`target_y`,`target_z`,`target_o`,`comment`) 
+VALUES (35873,0,0,0,1,0,100,257,500,500,500,500,11,13236,0,0,0,0,0,1,0,0,0,0.0,0.0,0.0,0.0,"Cast nature channeling");
+
+-- fix - emotes gilneas guards fighting worgen
+DELETE FROM `creature_addon` WHERE `guid` in (20556412, 20556411, 20556410, 20556409, 20556408, 20556407, 20556406, 20556405, 20556404, 
+20556403, 20556402, 20556401, 20556400, 20556398, 20556396, 20556394, 20556393, 20556392, 20556389, 20556385, 20556384, 20556382, 
+20556375, 20556374, 20556369, 20556360, 20556347, 20556345, 20556341, 20556335);
+INSERT INTO `creature_addon` (`guid`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `aiAnimKit`, `movementAnimKit`, `meleeAnimKit`, `auras`) VALUES
+(20556412, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556411, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556410, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556409, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556408, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556407, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556406, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556405, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556404, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556403, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556402, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556401, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556400, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556398, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556396, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556394, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556393, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556392, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556389, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556385, 0, 0, 0, 0, 45, 0, 0, 0, NULL), 
+(20556384, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556382, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556375, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556374, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556369, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556360, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556347, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556345, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556341, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556335, 0, 0, 0, 0, 45, 0, 0, 0, NULL);
+
+-- fix - horsed and phased lord godfrey 35906 near cellar 
+DELETE FROM `creature_addon` WHERE `guid`=210115271;
+DELETE FROM `creature_addon` WHERE `guid`=210115272;
+INSERT INTO `creature_addon` (`guid`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `aiAnimKit`, `movementAnimKit`, `meleeAnimKit`, `auras`) VALUES 
+(210115271, 0, 2410, 0, 0, 0, 0, 0, 0, NULL),
+(210115272, 0, 2410, 0, 0, 0, 0, 0, 0, NULL);
+DELETE FROM `creature` WHERE `guid`=210115271;
+DELETE FROM `creature` WHERE `guid`=210115272;
+INSERT INTO `creature` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseUseFlags`, `PhaseId`, `PhaseGroup`, `terrainSwapMap`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `unit_flags2`, `unit_flags3`, `dynamicflags`, `ScriptName`, `VerifiedBuild`) VALUES 
+(210115271, 35906, 654, 0, 0, 1, 0, 171, 0, -1, 0, 1, -1785.53, 1437.74, 20.2669, 6.02249, 300, 0, 0, 130, 115, 0, 0, 0, 0, 0, 0, '', 0),
+(210115272, 35906, 654, 0, 0, 1, 0, 172, 0, -1, 0, 1, -1785.82, 1437.63, 20.2474, 6.19842, 300, 0, 0, 130, 115, 0, 0, 0, 0, 0, 0, '', 0);
+
+-- fix - wrong queststrarters in gilneas
+DELETE FROM `creature_queststarter` WHERE `id`=35118 AND `quest`=24930;
+INSERT INTO `creature_queststarter` (`id`, `quest`) VALUES (35118, 24930);
+
+-- fix - endquest texts for gilneas class trainers, quests given by gwen armstead npc: 35840
+
+DELETE FROM `quest_offer_reward` WHERE `ID`=14277;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14277, 0, 0, 0, 0, 0, 0, 0, 0, 'A disciple of the arcane always finds a way forward. I\'m glad to see you, $N.', 0);
+DELETE FROM `quest_offer_reward` WHERE `ID`=14278;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14278, 0, 0, 0, 0, 0, 0, 0, 0, 'The Light is with you, $N. It\'s still quite a relief to see you.', 0);
+DELETE FROM `quest_offer_reward` WHERE `ID`=14273;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14273, 0, 0, 0, 0, 0, 0, 0, 0, 'A darkness has descended over our lands. And not our kind of darkness, if you know what I mean.', 0);
+DELETE FROM `quest_offer_reward` WHERE `ID`=14275;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14275, 0, 0, 0, 0, 0, 0, 0, 0, '$N! I knew you had to be around here.', 0);
+DELETE FROM `quest_offer_reward` WHERE `ID`=14269;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14269, 0, 0, 0, 0, 0, 0, 0, 0, 'Oh, hey! There you are!', 0);
+DELETE FROM `quest_offer_reward` WHERE `ID`=14272;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14272, 0, 0, 0, 0, 0, 0, 0, 0, 'Don\'t get ahead of yourself now.  Just remember who taught you everything you know. And now let\'s see if we can get out of this city with our skins attached.', 0);
+DELETE FROM `quest_offer_reward` WHERE `ID`=14280;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14280, 0, 0, 0, 0, 0, 0, 0, 0, 'We have been blessed today! You are alive and well!', 0);
+DELETE FROM `quest_offer_reward` WHERE `ID`=14265;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14265, 0, 0, 0, 0, 0, 0, 0, 0, '<name>!  Where have you been? Anyway... it\'s great to see you in one piece.', 0);
+
+-- fix - 35112 king genn greymane endquests texts
+DELETE FROM `quest_offer_reward` WHERE `ID`=14291;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14291, 0, 0, 0, 0, 0, 0, 0, 0, 'You\'ve done well in coming here. If we Gilneans stick together we might yet defeat this terrible enemy.', 0);
+DELETE FROM `quest_offer_reward` WHERE `ID`=14290;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14290, 0, 0, 0, 0, 0, 0, 0, 0, 'You\'ve done well in coming here. If we Gilneans stick together we might yet defeat this terrible enemy.', 0);
+DELETE FROM `quest_offer_reward` WHERE `ID`=14289;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14289, 0, 0, 0, 0, 0, 0, 0, 0, 'You\'ve done well in coming here. If we Gilneans stick together we might yet defeat this terrible enemy.', 0);
+DELETE FROM `quest_offer_reward` WHERE `ID`=14288;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14288, 0, 0, 0, 0, 0, 0, 0, 0, 'You\'ve done well in coming here. If we Gilneans stick together we might yet defeat this terrible enemy.', 0);
+DELETE FROM `quest_offer_reward` WHERE `ID`=14287;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14287, 0, 0, 0, 0, 0, 0, 0, 0, 'You\'ve done well in coming here. If we Gilneans stick together we might yet defeat this terrible enemy.', 0);
+DELETE FROM `quest_offer_reward` WHERE `ID`=14286;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14286, 0, 0, 0, 0, 0, 0, 0, 0, 'You\'ve done well in coming here. If we Gilneans stick together we might yet defeat this terrible enemy.', 0);
+DELETE FROM `quest_offer_reward` WHERE `ID`=14285;
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `Emote2`, `Emote3`, `Emote4`, `EmoteDelay1`, `EmoteDelay2`, `EmoteDelay3`, `EmoteDelay4`, `RewardText`, `VerifiedBuild`) 
+VALUES (14285, 0, 0, 0, 0, 0, 0, 0, 0, 'You\'ve done well in coming here. If we Gilneans stick together we might yet defeat this terrible enemy.', 0);
+
+-- End of Save Krennan Aranas Workaround and Various fixes
+
+-- Various fixes by Monad
+
+-- fix - 24930 while youre at it corect order if one of quests 14291, 14290, 14289, 14288, 14287, 14286, 14285 (all are safety in numbers) is rewarded
+
+DELETE FROM `conditions` WHERE `SourceEntry`=24930 AND `ConditionValue1`=14291 AND `ElseGroup`=0;
+INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionTarget`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `NegativeCondition`, `ErrorType`, `ErrorTextId`, `ScriptName`, `Comment`) 
+VALUES (19, 0, 24930, 0, 0, 8, 0, 14291, 0, 0, 0, 0, 0, '', 'make quest 24930 while your at it available');
+DELETE FROM `conditions` WHERE `SourceEntry`=24930 AND `ConditionValue1`=14290 AND `ElseGroup`=1;
+INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionTarget`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `NegativeCondition`, `ErrorType`, `ErrorTextId`, `ScriptName`, `Comment`) 
+VALUES (19, 0, 24930, 0, 1, 8, 0, 14290, 0, 0, 0, 0, 0, '', 'make quest 24930 while your at it available');
+DELETE FROM `conditions` WHERE `SourceEntry`=24930 AND `ConditionValue1`=14289 AND `ElseGroup`=2;
+INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionTarget`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `NegativeCondition`, `ErrorType`, `ErrorTextId`, `ScriptName`, `Comment`) 
+VALUES (19, 0, 24930, 0, 2, 8, 0, 14289, 0, 0, 0, 0, 0, '', 'make quest 24930 while your at it available');
+DELETE FROM `conditions` WHERE `SourceEntry`=24930 AND `ConditionValue1`=14288 AND `ElseGroup`=3;
+INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionTarget`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `NegativeCondition`, `ErrorType`, `ErrorTextId`, `ScriptName`, `Comment`) 
+VALUES (19, 0, 24930, 0, 3, 8, 0, 14288, 0, 0, 0, 0, 0, '', 'make quest 24930 while your at it available');
+DELETE FROM `conditions` WHERE `SourceEntry`=24930 AND `ConditionValue1`=14287 AND `ElseGroup`=4;
+INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionTarget`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `NegativeCondition`, `ErrorType`, `ErrorTextId`, `ScriptName`, `Comment`) 
+VALUES (19, 0, 24930, 0, 4, 8, 0, 14287, 0, 0, 0, 0, 0, '', 'make quest 24930 while your at it available');
+DELETE FROM `conditions` WHERE `SourceEntry`=24930 AND `ConditionValue1`=14286 AND `ElseGroup`=5;
+INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionTarget`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `NegativeCondition`, `ErrorType`, `ErrorTextId`, `ScriptName`, `Comment`) 
+VALUES (19, 0, 24930, 0, 5, 8, 0, 14286, 0, 0, 0, 0, 0, '', 'make quest 24930 while your at it available');
+DELETE FROM `conditions` WHERE `SourceEntry`=24930 AND `ConditionValue1`=14285 AND `ElseGroup`=6;
+INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionTarget`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `NegativeCondition`, `ErrorType`, `ErrorTextId`, `ScriptName`, `Comment`) 
+VALUES (19, 0, 24930, 0, 6, 8, 0, 14285, 0, 0, 0, 0, 0, '', 'make quest 24930 while your at it available');
+
+-- fix - set previous quest 0 for quest 24930 while youre at it
+
+DELETE FROM `quest_template_addon` WHERE `ID`=24930;
+INSERT INTO `quest_template_addon` (`ID`, `MaxLevel`, `AllowableClasses`, `SourceSpellID`, `PrevQuestID`, `NextQuestID`, `ExclusiveGroup`, `RewardMailTemplateID`, `RewardMailDelay`, `RequiredSkillID`, `RequiredSkillPoints`, `RequiredMinRepFaction`, `RequiredMaxRepFaction`, `RequiredMinRepValue`, `RequiredMaxRepValue`, `ProvidedItemCount`, `SpecialFlags`, `ScriptName`) 
+VALUES (24930, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '');
+
+
+-- fix - corect emotes 35369 josiah avery
+UPDATE creature_addon SET emote=375 WHERE guid=20556362;
+UPDATE creature_addon SET emote=431 WHERE guid=20556546;
+
+-- fix - quest orders gilneas start area merchant square
+UPDATE quest_template SET RewardNextQuest = 14099 WHERE id = 14094;
+UPDATE quest_template SET RewardNextQuest = 0 WHERE id = 14093;
+UPDATE quest_template SET RewardNextQuest = 0 WHERE id = 14098;
+UPDATE quest_template_addon SET PrevQuestID = 14078 WHERE id = 14094;
+UPDATE quest_template_addon SET NextQuestID = 14099 WHERE id = 14094;
+UPDATE quest_template_addon SET NextQuestID = 0 WHERE id = 14093;
+UPDATE quest_template_addon SET NextQuestID = 0 WHERE id = 14098;
+UPDATE quest_template_addon SET PrevQuestID = 14094 WHERE id = 14099;
+
+-- fix - emotes gilneas guards fighting worgen
+DELETE FROM `creature_addon` WHERE `guid` in (20556412, 20556411, 20556410, 20556409, 20556408, 20556407, 20556406, 20556405, 20556404, 
+20556403, 20556402, 20556401, 20556400, 20556398, 20556396, 20556394, 20556393, 20556392, 20556389, 20556385, 20556384, 20556382, 
+20556375, 20556374, 20556369, 20556360, 20556347, 20556345, 20556341, 20556335);
+INSERT INTO `creature_addon` (`guid`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `aiAnimKit`, `movementAnimKit`, `meleeAnimKit`, `auras`) VALUES
+(20556412, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556411, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556410, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556409, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556408, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556407, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556406, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556405, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556404, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556403, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556402, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556401, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556400, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556398, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556396, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556394, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556393, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556392, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556389, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556385, 0, 0, 0, 0, 45, 0, 0, 0, NULL), 
+(20556384, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556382, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556375, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556374, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556369, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556360, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556347, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556345, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556341, 0, 0, 0, 0, 45, 0, 0, 0, NULL),
+(20556335, 0, 0, 0, 0, 45, 0, 0, 0, NULL);
+
+-- fix - corect emotes and aura 49414 from npc 34936 gwen armstead working
+UPDATE `creature_addon` SET `emote`=375, `auras`=49414  WHERE `guid`=20556362;
+DELETE FROM `spell_area` WHERE `spell`=49416 AND `area`=4756 AND `quest_start`=14078;
 INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
-VALUES (68481, 4786, 14375, 14321, 0, -1, 0, 2, 3, 64, 64);
+VALUES (49416, 4756, 14078, 14099, 0, -1, 0, 2, 3, 64, 10);
 
-DELETE FROM `spell_area` WHERE `spell`=68482 AND `area`=4786 AND `quest_start`=14321 AND `aura_spell`=0 AND `teamId`=-1 AND `racemask`=0 AND `gender`=2;
-INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
-VALUES (68482, 4786, 14321, 0, 0, -1, 0, 2, 3, 64, 0);
+
+-- End of various fixes
+
