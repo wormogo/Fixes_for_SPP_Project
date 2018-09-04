@@ -1,6 +1,0 @@
--- Changes in the zone
-
--- 2018 08 25 - All creature spawn and creature addon has been added to db except the starter zone Gilneas City which 
-	was already fixed - except few minor bugs and Sacrifices quest.
-	Gilneas City has to be investigated with new sniff data and apply changes where data is available
--- 2018 08 25 - All quest related data has been added and refreshed from sniff in db.
