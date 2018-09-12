@@ -80,43 +80,43 @@ VALUES (68482, 4792, 14321, 14396, 0, -1, 0, 2, 3, 64, 74);
 
 DELETE FROM `spell_area` WHERE `spell`=68483 AND `area`=4786;
 INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
-VALUES (68483, 4786, 14396, 14465, 0, -1, 0, 2, 3, 64, 64);
+VALUES (68483, 4786, 14396, 14465, 0, -1, 0, 2, 3, 74, 64);
 
 DELETE FROM `spell_area` WHERE `spell`=68483 AND `area`=4714;
 INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
-VALUES (68483, 4714, 14396, 14465, 0, -1, 0, 2, 3, 64, 64);
+VALUES (68483, 4714, 14396, 14465, 0, -1, 0, 2, 3, 74, 64);
 
 DELETE FROM `spell_area` WHERE `spell`=68483 AND `area`=4808;
 INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
-VALUES (68483, 4808, 14396, 14465, 0, -1, 0, 2, 3, 64, 64);
+VALUES (68483, 4808, 14396, 14465, 0, -1, 0, 2, 3, 74, 64);
 
 DELETE FROM `spell_area` WHERE `spell`=68483 AND `area`=4818;
 INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
-VALUES (68483, 4818, 14396, 14465, 0, -1, 0, 2, 3, 64, 64);
+VALUES (68483, 4818, 14396, 14465, 0, -1, 0, 2, 3, 74, 64);
 
 DELETE FROM `spell_area` WHERE `spell`=68483 AND `area`=4807;
 INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
-VALUES (68483, 4807, 14396, 14465, 0, -1, 0, 2, 3, 64, 64);
+VALUES (68483, 4807, 14396, 14465, 0, -1, 0, 2, 3, 74, 64);
 
 DELETE FROM `spell_area` WHERE `spell`=68483 AND `area`=4806;
 INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
-VALUES (68483, 4806, 14396, 14465, 0, -1, 0, 2, 3, 64, 64);
+VALUES (68483, 4806, 14396, 14465, 0, -1, 0, 2, 3, 74, 64);
 
 DELETE FROM `spell_area` WHERE `spell`=68483 AND `area`=5720;
 INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
-VALUES (68483, 5720, 14396, 14465, 0, -1, 0, 2, 3, 64, 64);
+VALUES (68483, 5720, 14396, 14465, 0, -1, 0, 2, 3, 74, 64);
 
 DELETE FROM `spell_area` WHERE `spell`=68483 AND `area`=4793;
 INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
-VALUES (68483, 4793, 14396, 14465, 0, -1, 0, 2, 3, 64, 64);
+VALUES (68483, 4793, 14396, 14465, 0, -1, 0, 2, 3, 74, 64);
 
 DELETE FROM `spell_area` WHERE `spell`=68483 AND `area`=4792;
 INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
-VALUES (68483, 4792, 14396, 14465, 0, -1, 0, 2, 3, 64, 64);
+VALUES (68483, 4792, 14396, 14465, 0, -1, 0, 2, 3, 74, 64);
 
 DELETE FROM `spell_area` WHERE `spell`=68483 AND `area`=4817;
 INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
-VALUES (68483, 4817, 14396, 24438, 0, -1, 0, 2, 3, 64, 64);
+VALUES (68483, 4817, 14396, 24438, 0, -1, 0, 2, 3, 74, 64);
 
 -- phase 186
 
@@ -164,4 +164,4 @@ DELETE FROM `spell_area` WHERE `spell`=69484 AND `area`=4842;
 INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
 VALUES (69484, 4842, 14467, 0, 0, -1, 0, 2, 3, 64, 0);
 
-DELETE FROM `spell_area` WHERE `spell`=69484 AND `area`=4482; -- this area does not have this spell at all
+DELETE FROM `spell_area` WHERE `spell`=69484 AND `area`=4482;
