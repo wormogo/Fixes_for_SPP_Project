@@ -23,11 +23,11 @@ VALUES (196401, 0, 6, 0, 0, 0);
 
 DELETE FROM `gameobject` WHERE `guid`=51003228;
 INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseUseFlags`, `PhaseId`, `PhaseGroup`, `terrainSwapMap`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `isActive`, `ScriptName`, `VerifiedBuild`) 
-VALUES (51003228, 196880, 654, 4714, 4786, 1, 0, 0, 385, -1, -1865.89, 2232.71, 42.3229, 5.37562, 0, 0, -0.43837, 0.898795, 7200, 255, 1, 0, '', 26365);
+VALUES (51003228, 196880, 654, 4714, 4786, 1, 0, 0, 385, -1, -1865.89, 2232.71, 42.3229, 5.37562, 0, 0, -0.43837, 0.898795, 200, 255, 1, 0, '', 26365);
 
 DELETE FROM `gameobject` WHERE `guid`=51003227;
 INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseUseFlags`, `PhaseId`, `PhaseGroup`, `terrainSwapMap`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `isActive`, `ScriptName`, `VerifiedBuild`) 
-VALUES (51003227, 196879, 654, 4714, 4786, 1, 0, 0, 385, -1, -1869.11, 2229.79, 42.3233, 1.72787, 0, 0, 0.760405, 0.649449, 7200, 255, 1, 0, '', 26365);
+VALUES (51003227, 196879, 654, 4714, 4786, 1, 0, 0, 385, -1, -1869.11, 2229.79, 42.3233, 1.72787, 0, 0, 0.760405, 0.649449, 200, 255, 1, 0, '', 26365);
 
 DELETE FROM `gameobject` WHERE `guid`=51003225;
 
