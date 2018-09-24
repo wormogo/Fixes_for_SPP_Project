@@ -1,6 +1,10 @@
 -- SAVE KRENNAN
 
 -- Save Krennan Aranas (14293)
+DELETE FROM `creature_addon` WHERE `guid`=20556808;
+INSERT INTO `creature_addon` (`guid`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `aiAnimKit`, `movementAnimKit`, `meleeAnimKit`, `auras`) 
+VALUES (20556808, 0, 0, 50397184, 1, 473, 0, 0, 0, '49414');
+
 UPDATE `creature_template` SET `AIName`='SmartAI', `ScriptName`='' WHERE `entry` IN (35550);
 DELETE FROM `smart_scripts` WHERE `entryorguid` IN (35550);
 INSERT INTO `smart_scripts` VALUES
@@ -55,22 +59,19 @@ INSERT INTO `waypoints` VALUES
 (35905, 1, -1800.37, 1407.18, 20.0265, '');
 
 -- Save Krennan Spell Focus
-INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `IconName`, `castBarCaption`, `unk1`, `size`, `Data0`, `Data1`, `Data2`, `Data3`, `Data4`, `Data5`, `Data6`, `Data7`, `Data8`, `Data9`, `Data10`, `Data11`, `Data12`, `Data13`, `Data14`, `Data15`, `Data16`, `Data17`, `Data18`, `Data19`, `Data20`, `Data21`, `Data22`, `Data23`, `Data24`, `Data25`, `Data26`, `Data27`, `Data28`, `Data29`, `Data30`, `Data31`, `Data32`, `RequiredLevel`, `AIName`, `ScriptName`, `VerifiedBuild`) 
-VALUES (195660, 8, 299, 'Krennan Aranas Spell Focus', '', '', '', 1, 1630, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', 1);
 
 DELETE FROM `gameobject` WHERE `id` IN (301027, 195660);
 INSERT INTO `gameobject` VALUES
-(905000, 301027, 654, 1, 1, 1, 0, 171, 0, -1, -1674.46, 1344.95, 15.1352, 0, 0, 0, 0, 0, 300, 0, 0, 1, '', 0),
-(905001, 195660, 654, 1, 1, 1, 0, 171, 0, -1, -1674.46, 1344.95, 15.1352, 0, 0, 0, 0, 0, 300, 0, 0, 1, '', 0);
+(905000, 301027, 654, 1, 1, 1, 0, 171, 0, -1, -1674.46, 1344.95, 15.1352, 0, 0, 0, 0, 0, 300, 0, 0, 1, '', 0);
 
 DELETE FROM `gameobject_addon` WHERE `guid`IN (301027, 195660);
 INSERT INTO `gameobject_addon` (`guid`, `parent_rotation0`, `parent_rotation1`, `parent_rotation2`, `parent_rotation3`, `invisibilityType`, `invisibilityValue`, `WorldEffectID`) VALUES 
-(301027, 0, 0, 0, 1, 8, 1000, 0),
-(195660, 0, 0, 0, 1, 8, 1000, 0);
+(301027, 0, 0, 0, 1, 8, 1000, 0);
 
-INSERT INTO spell_area (`spell`, `area`, `quest_start`, `quest_end`, `quest_start_status`, `quest_end_status`) 
-VALUES (49416, 4755, 14293, 14294, 74, 64);
+DELETE FROM `spell_area` WHERE `spell`=49416 AND `area`=4755 AND `quest_start`=14293 AND `aura_spell`=0 AND `teamId`=-1 AND `racemask`=0 AND `gender`=2;
+INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `teamId`, `racemask`, `gender`, `flags`, `quest_start_status`, `quest_end_status`) 
+VALUES (49416, 4755, 14293, 14294, 0, -1, 0, 2, 3, 74, 64);
 
 -- Lord Godfrey 35906 Quest Ender for Save Krennan Aranas and Previous Godrey from Phase 170
-UPDATE creature SET PhaseID = 172 where GUID = 210115272 and PhaseID = 171;
-UPDATE creature SET PhaseID = 170 where GUID = 210115271 and PhaseID = 0;
+UPDATE `creature` SET PhaseID = 172 where GUID = 210115272;
+UPDATE `creature` SET PhaseID = 171 where GUID = 210115271;
