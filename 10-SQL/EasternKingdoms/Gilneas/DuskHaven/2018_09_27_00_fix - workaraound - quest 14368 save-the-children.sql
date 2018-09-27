@@ -8,7 +8,7 @@ delete FROM `creature_addon` WHERE `guid` IN (SELECT `guid` FROM `creature` WHER
 delete FROM `creature` WHERE `id` IN (36289, 36288, 36287) AND `map`=654 AND `phaseid`=182; 
 
 DELETE FROM `creature` WHERE `guid` IN (801490, 801496, 801486);
-INSERT INTO `creature` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseUseFlags`, `PhaseId`, `PhaseGroup`, `terrainSwapMap`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `unit_flags2`, `unit_flags3`, `dynamicflags`, `ScriptName`, `VerifiedBuild`) 
+INSERT INTO `creature` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnDifficulties`, `phaseUseFlags`, `PhaseId`, `PhaseGroup`, `terrainSwapMap`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `unit_flags2`, `unit_flags3`, `dynamicflags`, `ScriptName`, `VerifiedBuild`) 
 VALUES 
 (801490, 36287, 654, 4714, 4793, 3, 0, 182, 0, -1, 0, 0, -1987.47, 2508.71, 1.47526, 0.872665, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 25549),
 (801496, 36288, 654, 4714, 4793, 3, 0, 182, 0, -1, 0, 0, -1931.61, 2562.29, 12.815, 5.75959, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 25549),

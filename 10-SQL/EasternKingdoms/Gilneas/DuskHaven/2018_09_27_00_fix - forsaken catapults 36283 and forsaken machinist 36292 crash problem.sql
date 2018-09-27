@@ -13,7 +13,7 @@ DELETE FROM `spell_script_names` WHERE `spell_id`=68591 AND `ScriptName`='spell_
 INSERT INTO `spell_script_names` (`spell_id`, `ScriptName`) VALUES (68591, 'spell_fire_boulder_68591');
 
 DELETE FROM `creature` WHERE `guid` IN (801563, 801572, 801579, 801602, 801614, 801623, 801641);
-INSERT INTO `creature` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseUseFlags`, `PhaseId`, `PhaseGroup`, `terrainSwapMap`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `unit_flags2`, `unit_flags3`, `dynamicflags`, `ScriptName`, `VerifiedBuild`) 
+INSERT INTO `creature` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnDifficulties`, `phaseUseFlags`, `PhaseId`, `PhaseGroup`, `terrainSwapMap`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `unit_flags2`, `unit_flags3`, `dynamicflags`, `ScriptName`, `VerifiedBuild`) 
 VALUES 
 (801563, 36283, 654, 4714, 5720, 1, 0, 182, 0, -1, 0, 0, -2045.32, 2546.75, -1.92262, 0.20944, 300, 0, 0, 1227, 0, 0, 0, 0, 0, 0, 0, '', 25549), 
 (801572, 36283, 654, 4714, 5720, 1, 0, 182, 0, -1, 0, 0, -2046.31, 2649.22, -1.76595, 5.77704, 300, 0, 0, 1227, 0, 0, 0, 0, 0, 0, 0, '', 25549), 
@@ -50,7 +50,7 @@ VALUES
 (36283, 69434, 1, 0);
 
 DELETE FROM `creature` WHERE `id` IN (36286) AND map=654;
-INSERT INTO `creature` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseUseFlags`, `PhaseId`, `PhaseGroup`, `terrainSwapMap`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `unit_flags2`, `unit_flags3`, `dynamicflags`, `ScriptName`, `VerifiedBuild`) 
+INSERT INTO `creature` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnDifficulties`, `phaseUseFlags`, `PhaseId`, `PhaseGroup`, `terrainSwapMap`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `unit_flags2`, `unit_flags3`, `dynamicflags`, `ScriptName`, `VerifiedBuild`) 
 VALUES 
 (801624, 36286, 654, 4714, 4714, 3, 0, 182, 0, -1, 0, 0, -2101.91, 2688.91, 19.3181, 0, 7200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 25549),
 (801622, 36286, 654, 4714, 4793, 3, 0, 182, 0, -1, 0, 0, -1918.36, 2578.03, 1.59042, 0, 7200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 25549),
