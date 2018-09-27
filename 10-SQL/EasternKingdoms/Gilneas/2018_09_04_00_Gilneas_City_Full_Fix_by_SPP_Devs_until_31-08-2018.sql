@@ -232,6 +232,7 @@ UPDATE `gameobject_template` SET  `Data0`=0 AND `Data1`=0 AND `Data2`=11000  WHE
 
 -- End of door fix
 
+
 -- Worgen SPAWN and QUEST SECTION by Wormogo - except Gilneas City
 
 -- CREATURE SECTION
@@ -7619,9 +7620,9 @@ INSERT INTO `creature_addon` (`guid`, `path_id`, `mount`, `bytes1`, `bytes2`, `e
 (@CGUID+3295, 0, 0, 33554432, 1, 0, 0, 0, 0, ''), -- 53522
 (@CGUID+3296, 0, 0, 0, 257, 0, 0, 0, 0, ''), -- 3607
 (@CGUID+3297, 0, 0, 33554432, 1, 0, 0, 0, 0, ''), -- 53522
-(@CGUID+3300, 0, 0, 33554432, 1, 0, 0, 0, 0, ''), -- 53522
 (@CGUID+3298, 0, 0, 33554432, 1, 0, 0, 0, 0, ''), -- 53522
 (@CGUID+3299, 0, 0, 33554432, 1, 0, 0, 0, 0, ''); -- 53522
+(@CGUID+3300, 0, 0, 33554432, 1, 0, 0, 0, 0, ''), -- 53522
 
 DELETE FROM `creature_questitem` WHERE (`CreatureEntry`=37701 AND `Idx`=0) OR (`CreatureEntry`=36461 AND `Idx`=0) OR (`CreatureEntry`=37786 AND `Idx`=0);
 INSERT INTO `creature_questitem` (`CreatureEntry`, `Idx`, `ItemId`, `VerifiedBuild`) VALUES
