@@ -14,7 +14,7 @@ UPDATE `world`.`creature_template` SET `gossip_menu_id`='14290', `BaseAttackTime
 
 DELETE FROM `creature` WHERE `guid`=20556963;
 INSERT INTO `creature` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnDifficulties`, `phaseUseFlags`, `PhaseId`, `PhaseGroup`, `terrainSwapMap`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `unit_flags2`, `unit_flags3`, `dynamicflags`, `ScriptName`, `VerifiedBuild`) 
-VALUES (20556963, 44459, 654, 4755, 4758, 1, 0, 172, 0, -1, 0, 0, -1764.99, 1658.86, 20.9935, 5.44543, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 25383);
+VALUES (20556963, 44459, 654, 4755, 4758, 0, 0, 172, 0, -1, 0, 0, -1764.99, 1658.86, 20.9935, 5.44543, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 25383);
 
 -- fix - Vitus Darkwalker 35869 and 44469 corect spell 45104 cast
 
@@ -30,4 +30,4 @@ VALUES (44469, 0, 0, 0, 1, 0, 100, 257, 500, 500, 500, 500, '', 11, 45104, 0, 0,
 
 DELETE FROM `creature` WHERE `guid`=20556950;
 INSERT INTO `creature` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnDifficulties`, `phaseUseFlags`, `PhaseId`, `PhaseGroup`, `terrainSwapMap`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `unit_flags2`, `unit_flags3`, `dynamicflags`, `ScriptName`, `VerifiedBuild`) 
-VALUES (20556950, 44469, 654, 4755, 4758, 1, 0, 172, 0, -1, 0, 0, -1745.82, 1633.39, 20.5625, 1.6057, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 25383);
+VALUES (20556950, 44469, 654, 4755, 4758, 0, 0, 172, 0, -1, 0, 0, -1745.82, 1633.39, 20.5625, 1.6057, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 25383);
