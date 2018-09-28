@@ -7,5 +7,3 @@ DELETE FROM `creature_addon` WHERE `guid`='801700';
 
 DELETE FROM `creature_addon` WHERE `guid` IN (SELECT `guid` FROM `creature` WHERE `id` IN ('36505'));
 DELETE FROM `creature` WHERE `id` IN ('36405');
-
-DELETE FROM `creature_addon` WHERE `guid` NOT IN (SELECT `guid` FROM `creature` where `map` in ('654'));
