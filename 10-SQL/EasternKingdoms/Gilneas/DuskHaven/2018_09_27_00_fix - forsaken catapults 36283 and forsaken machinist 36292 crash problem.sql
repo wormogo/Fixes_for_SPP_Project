@@ -97,4 +97,3 @@ VALUES
 (801570, 0, 0, 0, 1, 0, 0, 0, 0, ''),
 (804880, 0, 0, 0, 1, 0, 0, 0, 0, '');
 
-DELETE FROM `creature_addon` WHERE `guid`  NOT IN (SELECT `guid` FROM `creature` where `guid` between 800000 and 805000);
