@@ -15,7 +15,3 @@ INSERT INTO `gameobject_loot_template` (`Entry`, `Item`, `Reference`, `Chance`, 
 (1619, 2449, 0, 100, 0, 1, 0, 1, 1, ''),
 (2866, 4625, 0, 95, 0, 1, 0, 1, 1, ''),
 (2866, 108332, 0, 5, 0, 1, 0, 1, 1, '');
-
-
-
-
